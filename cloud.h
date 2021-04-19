@@ -4,12 +4,14 @@
 
 class Cloud {
     private:
-        Point **points;
-        size_t numberPoints;
-        float normalDistribution(float default, float delta);
+        Point *points;
+        Point centerPoint;
+        size_t quantity;
+        float normalDistribution(float median, float delta);
     public:
-        Cloud(Point *begin, size_t quantity) { points = *begin; numberPoints = quantity; }
-        void fill(Point centerPoint, float dx, float dy);
+        Cloud(Point _centerPoint, float dx, float dy, size_t _quantity); // creates new cloud
+        Cloud(Point *begin, size_t _quantity) { points = begin; quantity = _quantity; } // sets an array of points as cloud
+        void fill(Point _centerPoint, float dx, float dy);
         void displace(float dx, float dy);
         void rotateAroundOrigin(float dphi);
         void rotateAroundCenterPoint(float dphi);
