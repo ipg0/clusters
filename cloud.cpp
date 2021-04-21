@@ -3,34 +3,34 @@
 #include <cmath>
 #include <random>
 
-Cloud::Cloud(Point _centerPoint, float _dx, float _dy, size_t _quantity) {
+Cloud::Cloud(Point _centerPoint, double _dx, double _dy, size_t _quantity) {
     centerPoint = _centerPoint;
     dx = _dx;
     dy = _dy;
     quantity = _quantity;
     points = new Point[quantity];
     std::default_random_engine generator(time(0));
-    std::normal_distribution<float> xdistr(_centerPoint.x, dx);
-    std::normal_distribution<float> ydistr(_centerPoint.y, dy);
+    std::normal_distribution<double> xdistr(_centerPoint.x, dx);
+    std::normal_distribution<double> ydistr(_centerPoint.y, dy);
     for(size_t i = 0; i < quantity; i++)
         points[i] = Point(xdistr(generator),
             ydistr(generator));
 }
 
-void Cloud::displace(float _dx, float _dy) {
+void Cloud::displace(double _dx, double _dy) {
     centerPoint.displace(dx, dy);
     for(size_t i = 0; i < quantity; i++)
         points[i].displace(dx, dy);
 }
 
-void Cloud::rotateAboutOrigin(float dphi) {
+void Cloud::rotateAboutOrigin(double dphi) {
     Point origin(0, 0);
     centerPoint.rotate(&origin, dphi);
     for(size_t i = 0; i < quantity; i++)
         points[i].rotate(&origin, dphi);
 }
 
-void Cloud::rotateAboutCenterPoint(float dphi) {
+void Cloud::rotateAboutCenterPoint(double dphi) {
     for(size_t i = 0; i < quantity; i++)
         points[i].rotate(&centerPoint, dphi);
 }

@@ -7,14 +7,14 @@ private:
     Point *points;           // created inside; deleted inside
     Point centerPoint;
     size_t quantity;
-    float dx, dy;
+    double dx, dy;
 public:
-    Cloud(Point _centerPoint, float _dx, float _dy, size_t _quantity);   // works
+    Cloud(Point _centerPoint, double _dx, double _dy, size_t _quantity);   // works
     Point *getPoints() { return points; }
     size_t getQuantity() { return quantity; }
-    void displace(float _dx, float _dy);
-    void rotateAboutOrigin(float dphi);
-    void rotateAboutCenterPoint(float dphi);
+    void displace(double _dx, double _dy);
+    void rotateAboutOrigin(double dphi);
+    void rotateAboutCenterPoint(double dphi);
     void checkPoints() {
         for(size_t i = 0; i < quantity; i++)
             std::cout << points[i].x << ' ' << points[i].y << '\n';
