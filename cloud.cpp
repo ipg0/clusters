@@ -18,19 +18,19 @@ Cloud::Cloud(Point _centerPoint, double _dx, double _dy, size_t _quantity) {
 }
 
 void Cloud::displace(double _dx, double _dy) {
-    centerPoint.displace(dx, dy);
+    centerPoint.displace(_dx, _dy);
     for(size_t i = 0; i < quantity; i++)
-        points[i].displace(dx, dy);
+        points[i].displace(_dx, _dy);
 }
 
 void Cloud::rotateAboutOrigin(double dphi) {
     Point origin(0, 0);
-    centerPoint.rotate(&origin, dphi);
+    centerPoint.rotate(origin, dphi);
     for(size_t i = 0; i < quantity; i++)
-        points[i].rotate(&origin, dphi);
+        points[i].rotate(origin, dphi);
 }
 
 void Cloud::rotateAboutCenterPoint(double dphi) {
     for(size_t i = 0; i < quantity; i++)
-        points[i].rotate(&centerPoint, dphi);
+        points[i].rotate(centerPoint, dphi);
 }

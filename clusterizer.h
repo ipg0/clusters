@@ -6,25 +6,26 @@
 
 class ISearchAlgorithm {
 public:
-    virtual void search(Field *_field) = 0;
+    virtual size_t search(Field *_field) = 0;
+    virtual size_t searchOptimal(Field *_field) = 0;
 };
 
 class Clusterizer {             // I really want to rename this into "clusterfuck" at this point
 private:
     Field *field;                               // created outside (main flow); deleted outside
-    ISearchAlgorithm *currentSearchAlgorithm;   // created outside (main flow); 
-                                                // updated externally (main flow); deleted inside
+    ISearchAlgorithm *currentSearchAlgorithm;   // created outside (main flow); updated externally (main flow); deleted inside
 public:
     Clusterizer(Field *_field, ISearchAlgorithm *_searchAlgorithm = nullptr) { 
         field = _field; currentSearchAlgorithm = _searchAlgorithm;
     }
-    void search() { return currentSearchAlgorithm->search(field); }
+    size_t search() { return currentSearchAlgorithm->search(field); }
+
     void updateSearchAlgorithm(ISearchAlgorithm *_searchAlgorithm) {
         delete currentSearchAlgorithm;
         currentSearchAlgorithm = _searchAlgorithm;
     }
     ~Clusterizer() {
-        delete currentSearchAlgorithm;
+        if(currentSearchAlgorithm) delete currentSearchAlgorithm;
     }
 };
 
