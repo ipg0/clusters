@@ -6,7 +6,7 @@
 
 class ISearchAlgorithm {
 public:
-    virtual void *search(Field *_field) = 0;
+    virtual void search(Field *_field) = 0;
 };
 
 class Clusterizer {             // I really want to rename this into "clusterfuck" at this point
@@ -18,7 +18,7 @@ public:
     Clusterizer(Field *_field, ISearchAlgorithm *_searchAlgorithm = nullptr) { 
         field = _field; currentSearchAlgorithm = _searchAlgorithm;
     }
-    Cloud *search() { return currentSearchAlgorithm.search(field); }
+    void search() { return currentSearchAlgorithm->search(field); }
     void updateSearchAlgorithm(ISearchAlgorithm *_searchAlgorithm) {
         delete currentSearchAlgorithm;
         currentSearchAlgorithm = _searchAlgorithm;

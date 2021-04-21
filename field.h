@@ -10,8 +10,8 @@ private:
     size_t quantity;
 public:
     Field() { quantity = 0; points = nullptr; }
-    Points *getPoints() { return points; }
-    size_t *getQuantity() { return quantity; }
+    Point *getPoints() { return points; }
+    size_t getQuantity() { return quantity; }
     Field(std::istream &input);
     void addCloud(Cloud cloud);
     void write(std::ostream &output);
