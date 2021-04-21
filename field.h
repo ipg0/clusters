@@ -2,16 +2,19 @@
 #define FIELD_H
 #include "point.h"
 #include "cloud.h"
-#include "istream"
+#include "iostream"
 
 class Field {
 private:
-    Point *points;
+    Point *points;           // created inside; deleted inside
+    size_t quantity;
 public:
-    Field() { points = nullptr; }
+    Field() { quantity = 0; points = nullptr; }
+    Points *getPoints() { return points; }
+    size_t *getQuantity() { return quantity; }
     Field(std::istream &input);
     void addCloud(Cloud cloud);
-    void write();
+    void write(std::ostream &output);
     ~Field() { delete[] points; };
 };
 

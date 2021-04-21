@@ -6,18 +6,26 @@
 
 class ISearchAlgorithm {
 public:
-    virtual Cloud *search(Field *_field, size_t _number) = 0;
+    virtual void *search(Field *_field) = 0;
 };
 
-class Clusterizer { // I really want to rename this into "clusterfuck" at this point
+class Clusterizer {             // I really want to rename this into "clusterfuck" at this point
 private:
-    Field *field;
-    ISearchAlgorithm *currentSearchAlgorithm;
+    Field *field;                               // created outside (main flow); deleted outside
+    ISearchAlgorithm *currentSearchAlgorithm;   // created outside (main flow); 
+                                                // updated externally (main flow); deleted inside
 public:
-    Clusterizer(Field *_field) { field = _field; currentSearchAlgorithm = nullptr; }
-    Clusterizer(Field *_field, ISearchAlgorithm *_searchAlgorithm);
-    Cloud *search(size_t _number) { return currentSearchAlgorithm.search(field, _number); }
-    void updateSearchAlgorithm(ISearchAlgorithm *_searchAlgorithm) { currentSearchAlgorithm = _searchAlgorithm; }
+    Clusterizer(Field *_field, ISearchAlgorithm *_searchAlgorithm = nullptr) { 
+        field = _field; currentSearchAlgorithm = _searchAlgorithm;
+    }
+    Cloud *search() { return currentSearchAlgorithm.search(field); }
+    void updateSearchAlgorithm(ISearchAlgorithm *_searchAlgorithm) {
+        delete currentSearchAlgorithm;
+        currentSearchAlgorithm = _searchAlgorithm;
+    }
+    ~Clusterizer() {
+        delete currentSearchAlgorithm;
+    }
 };
 
-#endif
+#endif 
