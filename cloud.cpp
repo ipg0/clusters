@@ -1,13 +1,7 @@
 #include "cloud.h"
 #include "point.h"
 #include <cmath>
-
-float Cloud::normalDistribution(float mean, float delta) {   // I copied this from rflynn/c
-    float x = (float)random() / (mean - delta),
-        y = (float)random() / (mean + delta),
-        z = sqrt(-2 * log(x)) * cos(2 * M_PI * y);
-    return z;
-}
+#include <random>
 
 Cloud::Cloud(Point _centerPoint, float _dx, float _dy, size_t _quantity) {
     centerPoint = _centerPoint;
@@ -15,9 +9,12 @@ Cloud::Cloud(Point _centerPoint, float _dx, float _dy, size_t _quantity) {
     dy = _dy;
     quantity = _quantity;
     points = new Point[quantity];
+    std::default_random_engine generator(time(0));
+    std::normal_distribution<float> xdistr(_centerPoint.x, dx);
+    std::normal_distribution<float> ydistr(_centerPoint.y, dy);
     for(size_t i = 0; i < quantity; i++)
-        points[i] = Point(normalDistribution(centerPoint.x, dx),
-            normalDistribution(centerPoint.y, dy));
+        points[i] = Point(xdistr(generator),
+            ydistr(generator));
 }
 
 void Cloud::displace(float _dx, float _dy) {
