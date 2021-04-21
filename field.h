@@ -9,11 +9,12 @@ private:
     Point *points;           // created inside; deleted inside
     size_t quantity;
 public:
+    Field(const Field &_field);
     Field() { quantity = 0; points = nullptr; }
     Field(std::istream &input);
     Point *getPoints() { return points; }
     size_t getQuantity() { return quantity; }
-    void addCloud(Cloud &cloud);                   // works
+    void addCloud(Cloud cloud);                   // works
     void write(std::ostream &output);
     ~Field() { delete[] points; }
     void checkPoints() {
