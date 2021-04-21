@@ -11,9 +11,12 @@ private:
     float normalDistribution(float mean, float delta);
 public:
     Cloud(Point _centerPoint, float _dx, float _dy, size_t _quantity);
+    Point *getPoints() { return points; }
+    size_t getQuantity() { return quantity; }
     void displace(float _dx, float _dy);
     void rotateAboutOrigin(float dphi);
     void rotateAboutCenterPoint(float dphi);
+    ~Cloud() { delete[] points; }
 };
 
 #endif
