@@ -5,3 +5,5 @@ test.cpp
 forel_search
 clusterizer
 point
+field.cpp
+out.json

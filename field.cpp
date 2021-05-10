@@ -12,3 +12,15 @@ void Field::addCloud(Cloud cloud) {
     memcpy(points + quantity, cloud.getPoints(), cloud.getQuantity() * sizeof(Point));
     quantity += cloud.getQuantity();
 }
+
+void Field::write(std::ostream &output) {
+    output << '[';
+    for(size_t i = 0; i < quantity; i++) {
+        output << "{ \"x\" : " << points[i].x
+            << ", \"y\" : " << points[i].y
+            << ", \"mark\" : " << points[i].clusterMark << '}';
+        if(i != quantity - 1)
+            output << ", ";
+    }
+    output << ']';
+}

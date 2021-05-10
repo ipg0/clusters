@@ -8,7 +8,7 @@ size_t FOREL::randomPointIndex() const {
     return randomPointIndex();
 }
 
-Point FOREL::centerOfMass(Point **points, size_t quantity) const {
+Point FOREL::getCentroid(Point **points, size_t quantity) const {
     double sumX = 0, sumY = 0;
     for(size_t i = 0; i < quantity; i++) {
         sumX += points[i]->x;
@@ -21,8 +21,7 @@ Point **FOREL::getPointsWithinRadius(Point &center, size_t &quantity) const {
     quantity = 0;
     Point **pointsWithinRadius = nullptr;
     for(size_t i = 0; i < field->getQuantity(); i++) {
-        if(!field->getPoints()[i].clusterDefined() && sqrt(pow(center.x - field->getPoints()[i].x, 2) +
-            pow(center.y - field->getPoints()[i].y, 2)) <= radius) {
+        if(validate(field->getPoints()[i]) && center - field->getPoints()[i] <= radius) {
                 pointsWithinRadius = static_cast<Point **>(realloc(pointsWithinRadius, ++quantity * sizeof(Point *)));
                 pointsWithinRadius[quantity - 1] = (field->getPoints() + i);
             }
@@ -38,12 +37,12 @@ size_t FOREL::search(double floatingParameter) {
         Point currentPoint = field->getPoints()[randomPointIndex()];
         size_t quantityWithinRadius;
         Point **withinRadius = getPointsWithinRadius(currentPoint, quantityWithinRadius);
-        Point currentCenter = centerOfMass(withinRadius, quantityWithinRadius);
+        Point currentCenter = getCentroid(withinRadius, quantityWithinRadius);
         while(currentPoint != currentCenter) {
             currentPoint = currentCenter;
             free(withinRadius);
             withinRadius = getPointsWithinRadius(currentPoint, quantityWithinRadius);
-            currentCenter = centerOfMass(withinRadius, quantityWithinRadius);
+            currentCenter = getCentroid(withinRadius, quantityWithinRadius);
         }
         for(size_t i = 0; i < quantityWithinRadius; i++) {
             withinRadius[i]->clusterMark = currentClusterMark;

@@ -5,14 +5,14 @@
 
 class FOREL : public ISearchAlgorithm {
 private:
-    float radius;
+    double radius;
     size_t markedPoints;
     Point currentCenter;
     Field *field;
     size_t randomPointIndex() const;
     Point **getPointsWithinRadius(Point &center, size_t &quantity) const;
-    Point centerOfMass(Point **points, size_t quantity) const;
-    bool validate(Point &point) const { return point.clusterDefined(); }
+    Point getCentroid(Point **points, size_t quantity) const;
+    bool validate(Point &point) const { return !point.clusterDefined(); }
     bool allPointsMarked() const { return markedPoints == field->getQuantity(); }
 public:
     FOREL(Field *_field) { field = _field; markedPoints = 0; }

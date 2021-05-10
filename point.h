@@ -22,6 +22,8 @@ public:
     };
     bool operator==(Point &other) const { return (x == other.x) && (y == other.y); }
     bool operator!=(Point &other) const { return !operator==(other); }
+    double operator-(Point &other) const { return sqrt(pow(x - other.x, 2) +
+            pow(y - other.y, 2)); }
 };
 
 #endif
