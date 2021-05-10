@@ -19,7 +19,6 @@ public:
         field = _field; currentSearchAlgorithm = _searchAlgorithm;
     }
     size_t search() { return currentSearchAlgorithm->search(field); }
-
     void updateSearchAlgorithm(ISearchAlgorithm *_searchAlgorithm) {
         delete currentSearchAlgorithm;
         currentSearchAlgorithm = _searchAlgorithm;

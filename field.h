@@ -16,6 +16,7 @@ public:
     size_t getQuantity() { return quantity; }
     void addCloud(Cloud cloud);                   // works
     void write(std::ostream &output);
+    void reset() { for(size_t i = 0; i < quantity; i++) points[i].reset(); }
     ~Field() { delete[] points; }
     void checkPoints() {
         for(size_t i = 0; i < quantity; i++)
