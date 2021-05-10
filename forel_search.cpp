@@ -1,14 +1,14 @@
 #include "forel_search.h"
 #include <cstdlib>
 
-size_t FOREL::randomPointIndex() {
+size_t FOREL::randomPointIndex() const {
     size_t currentIndex = std::rand() % field->getQuantity();
     if(!field->getPoints()[currentIndex].clusterDefined())
         return currentIndex;
     return randomPointIndex();
 }
 
-Point FOREL::centerOfMass(Point **points, size_t quantity) {
+Point FOREL::centerOfMass(Point **points, size_t quantity) const {
     double sumX = 0, sumY = 0;
     for(size_t i = 0; i < quantity; i++) {
         sumX += points[i]->x;
@@ -17,13 +17,13 @@ Point FOREL::centerOfMass(Point **points, size_t quantity) {
     return Point(sumX / quantity, sumY / quantity);
 }
 
-Point **FOREL::getPointsWithinRadius(Point &center, size_t &quantity) {
+Point **FOREL::getPointsWithinRadius(Point &center, size_t &quantity) const {
     quantity = 0;
     Point **pointsWithinRadius = nullptr;
     for(size_t i = 0; i < field->getQuantity(); i++) {
-        if(!field->getPoints()[i].clusterDefined() sqrt(pow(center.x - field->getPoints()[i].x, 2) +
-            pow(center.y - field->getPoints()[i].y, 2)) {
-                pointsWithinRadius = realloc(pointsWithinRadius, ++quantity * sizeof(Point *));
+        if(!field->getPoints()[i].clusterDefined() && sqrt(pow(center.x - field->getPoints()[i].x, 2) +
+            pow(center.y - field->getPoints()[i].y, 2)) <= radius) {
+                pointsWithinRadius = static_cast<Point **>(realloc(pointsWithinRadius, ++quantity * sizeof(Point *)));
                 pointsWithinRadius[quantity - 1] = (field->getPoints() + i);
             }
     }
@@ -32,6 +32,7 @@ Point **FOREL::getPointsWithinRadius(Point &center, size_t &quantity) {
 
 size_t FOREL::search(double floatingParameter) {
     reset();
+    radius = floatingParameter;
     size_t currentClusterMark = 1;
     while(!allPointsMarked()) {
         Point currentPoint = field->getPoints()[randomPointIndex()];
