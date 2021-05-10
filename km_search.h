@@ -5,13 +5,16 @@
 
 class KMeans : public ISearchAlgorithm {
 private:
-    size_t clusterQuantity;
+    size_t k;
     Field *field;
-    void assignToNearestMeans();
-    void getMeans();
+    Point *means;
+    void setRandomMeans();
+    bool assignToNearestMeans();
+    void setMeans();
 public:
-    virtual void setField(Field *_field) { field = _field; }
+    KMeans(Field *_field) { field = _field; }
+    virtual void setField(Field *_field) override { field = _field; }
     virtual size_t search(double floatingParameter) override;
-} 
+};
 
 #endif

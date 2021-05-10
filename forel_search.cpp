@@ -2,7 +2,7 @@
 #include <cstdlib>
 
 size_t FOREL::randomPointIndex() const {
-    size_t currentIndex = std::rand() % field->getQuantity();
+    size_t currentIndex = rand() % field->getQuantity();
     if(!field->getPoints()[currentIndex].clusterDefined())
         return currentIndex;
     return randomPointIndex();

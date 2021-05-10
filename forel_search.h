@@ -16,7 +16,7 @@ private:
     bool allPointsMarked() const { return markedPoints == field->getQuantity(); }
 public:
     FOREL(Field *_field) { field = _field; markedPoints = 0; }
-    virtual void setField(Field *_field) { field = _field; }
+    virtual void setField(Field *_field) override { field = _field; }
     void reset() { markedPoints = 0; field->reset(); };
     virtual size_t search(double floatingParameter) override;
 };

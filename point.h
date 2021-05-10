@@ -22,7 +22,7 @@ public:
     };
     bool operator==(Point &other) const { return (x == other.x) && (y == other.y); }
     bool operator!=(Point &other) const { return !operator==(other); }
-    double operator-(Point &other) const { return sqrt(pow(x - other.x, 2) +
+    double operator-(Point &other) const { return sqrt(pow(x - other.x, 2) +               // this calculates distance
             pow(y - other.y, 2)); }
 };
 
