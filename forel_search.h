@@ -1,3 +1,6 @@
+#ifndef FOREL_SEARCH_H
+#define FOREL_SEARCH_H
+
 #include "clusterizer.h"
 
 class FOREL : public ISearchAlgorithm {
@@ -6,12 +9,15 @@ private:
     size_t markedPoints;
     Point currentCenter;
     Field *field;
-    Point *randomPoint();
-    void markPointsAround();
-    bool validate(Point point) { return point.clusterDefined(); }
-    bool allPointsMarked() { return markedPoints == field->getQuantity(); }
+    size_t randomPointIndex() const;
+    Point **getPointsWithinRadius(Point &center, size_t &quantity) const;
+    Point centerOfMass(Point **points, size_t quantity) const;
+    bool validate(Point &point) const { return point.clusterDefined(); }
+    bool allPointsMarked() const { return markedPoints == field->getQuantity(); }
 public:
-    void reset() { markedPoints = 0; field->reset() };
-    void setRadius(double _radius) { reset(); radius = _radius; };
-    virtual void search(Field *_field) override;
+    FOREL(Field *_field) { field = _field; markedPoints = 0; }
+    void reset() { markedPoints = 0; field->reset(); };
+    virtual size_t search(double floatingParameter) override;
 };
+
+#endif

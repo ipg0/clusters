@@ -20,6 +20,8 @@ public:
             _y = x * sinp + y * cosp;
         x = _x + pivot.x, y = _y + pivot.y; 
     };
+    bool operator==(Point &other) const { return (x == other.x) && (y == other.y); }
+    bool operator!=(Point &other) const { return !operator==(other); }
 };
 
 #endif

@@ -1,6 +1,5 @@
 #ifndef FIELD_H
 #define FIELD_H
-#include "cloud.h"
 #include "cloud.cpp"
 #include <iostream>
 

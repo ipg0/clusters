@@ -6,8 +6,8 @@
 
 class ISearchAlgorithm {
 public:
-    virtual size_t search(Field *_field) = 0;
-    virtual size_t searchOptimal(Field *_field) = 0;
+    virtual void setField(Field *_field) = 0;
+    virtual size_t search(double floatingParameter) = 0;
 };
 
 class Clusterizer {             // I really want to rename this into "clusterfuck" at this point
@@ -18,7 +18,7 @@ public:
     Clusterizer(Field *_field, ISearchAlgorithm *_searchAlgorithm = nullptr) { 
         field = _field; currentSearchAlgorithm = _searchAlgorithm;
     }
-    size_t search() { return currentSearchAlgorithm->search(field); }
+    size_t search(double floatingParameter) { return currentSearchAlgorithm->search(floatingParameter); }
     void updateSearchAlgorithm(ISearchAlgorithm *_searchAlgorithm) {
         delete currentSearchAlgorithm;
         currentSearchAlgorithm = _searchAlgorithm;
