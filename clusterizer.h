@@ -6,7 +6,8 @@
 
 class ISearchAlgorithm {
 public:
-    virtual void setField(Field *_field) = 0;
+    Field *field;
+    void setField(Field *_field) { field = _field; }
     virtual size_t search(double floatingParameter) = 0;
 };
 
