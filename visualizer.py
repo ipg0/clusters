@@ -1,10 +1,9 @@
-import matplotlib
-import seaborn as sns
-import matplotlib.pyplot as plt
-import pandas as pd
+from matplotlib.pyplot import show
+from seaborn import scatterplot
+from pandas import read_json
 # here is some shit code for visualising this shitfuckery
 
-data = pd.read_json("out.json")
+data = read_json("out.json")
 
-sns.scatterplot(data = data, x = 'x', y = 'y', hue = 'mark')
-plt.show()
+scatterplot(data = data, x = 'x', y = 'y', hue = 'mark')
+show()
