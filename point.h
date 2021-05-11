@@ -4,6 +4,8 @@
 
 typedef unsigned long size_t;
 
+#define EPS 1e-4
+
 class Point {
 public:
     double x, y;
@@ -20,9 +22,10 @@ public:
             _y = x * sinp + y * cosp;
         x = _x + pivot.x, y = _y + pivot.y; 
     };
-    bool operator==(Point &other) const { return (x == other.x) && (y == other.y); }
-    bool operator!=(Point &other) const { return !operator==(other); }
-    double operator-(Point &other) const { return sqrt(pow(x - other.x, 2) +               // this calculates distance
+    bool isEqual(const double &a, const double &b) { return fabs(a - b) <= EPS; }
+    bool operator==(const Point &other) const { return fabs(x - other.x) <= EPS && fabs(y - other.y) <= EPS; }
+    bool operator!=(const Point &other) const { return !operator==(other); }
+    double operator-(const Point &other) const { return sqrt(pow(x - other.x, 2) +               // this calculates distance
             pow(y - other.y, 2)); }
 };
 
