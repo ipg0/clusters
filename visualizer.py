@@ -1,7 +1,6 @@
 import seaborn
 import matplotlib
 import pandas
-import json 
 
 # here is some shit code for visualising this shitfuckery
 
