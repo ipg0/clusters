@@ -3,13 +3,6 @@
 #include <cmath>
 #include <random>
 
-Cloud::Cloud(const Cloud &_cloud) {
-    quantity = _cloud.quantity;
-    centerPoint = _cloud.centerPoint;
-    points = new Point[quantity];
-    memcpy(points, _cloud.points, quantity * sizeof(Point));
-}
-
 Cloud::Cloud(Point _centerPoint, double _dx, double _dy, size_t _quantity) {
     centerPoint = _centerPoint;
     dx = _dx;

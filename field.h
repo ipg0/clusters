@@ -13,7 +13,7 @@ public:
     Field(std::istream &input);
     Point *getPoints() { return points; }
     size_t getQuantity() { return quantity; }
-    void addCloud(Cloud cloud);                   // works
+    void addCloud(Cloud *cloud);                   // works
     void write(std::ostream &output);
     void reset() { for(size_t i = 0; i < quantity; i++) points[i].reset(); }
     ~Field() { if(points) delete[] points; }

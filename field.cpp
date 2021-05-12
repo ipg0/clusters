@@ -34,10 +34,10 @@ Field::Field(std::istream &input) {
     }
 } // this is terrible but it should work, not a general JSON parser anyway.
 
-void Field::addCloud(Cloud cloud) {
-    points = static_cast<Point *>(realloc(points, quantity + cloud.getQuantity() * sizeof(Point)));
-    memcpy(points + quantity, cloud.getPoints(), cloud.getQuantity() * sizeof(Point));
-    quantity += cloud.getQuantity();
+void Field::addCloud(Cloud *cloud) {
+    points = static_cast<Point *>(realloc(points, (quantity + cloud->getQuantity()) * sizeof(Point)));
+    memcpy(points + quantity, cloud->getPoints(), cloud->getQuantity() * sizeof(Point));
+    quantity += cloud->getQuantity();
 }
 
 void Field::write(std::ostream &output) {

@@ -20,7 +20,7 @@ UserInterface::MainMenuOption UserInterface::showMainMenu() {
         std::cout << "4) Save field to file" << std::endl;
     }
     std::cout << "5) Quit" << std::endl;
-    std::cout << "Type a nubmer [1-5]: ";
+    std::cout << "Selection [1-5]: ";
     size_t query;
     std::cin >> query;
     if(query < 1 || query > 5 || (query != 5 && query > 2 && !clusterizer)) {
@@ -36,6 +36,7 @@ UserInterface::FieldCreationMenuOption UserInterface::showFieldCreationMenu() {
     std::cout << "1) Add cloud to field" << std::endl;
     std::cout << "2) Done" << std::endl;
     std::cout << "3) Discard" << std::endl;
+    std::cout << "Selection [1-3]: ";
     size_t query;
     std::cin >> query;
     if(query < 1 || query > 3) {
@@ -53,6 +54,7 @@ UserInterface::CloudCreationMenuOption UserInterface::showCloudCreationMenu() {
     std::cout << "3) Rotate cloud about center" << std::endl;
     std::cout << "4) Done" << std::endl;
     std::cout << "5) Discard" << std::endl;
+    std::cout << "Selection [1-5]: ";
     size_t query;
     std::cin >> query;
     if(query < 1 || query > 5) {
@@ -68,11 +70,12 @@ UserInterface::SearchAlgorithmMenuOption UserInterface::showSearchAlgorithmMenu(
     std::cout << "1) FOREL" << std::endl;
     std::cout << "2) K Means" << std::endl;
     std::cout << "3) Wave Method" << std::endl;
-    std::cout << "4) Quit" << std::endl;
+    std::cout << "Selection [1-3]:";
     size_t query;
     std::cin >> query;
-    if(query < 1 || query > 4)
-        throw "Invalid option!";
+    if(query < 1 || query > 3) {
+        std::cout << "Invalid option!" << std::endl;
+    }
     return static_cast<SearchAlgorithmMenuOption>(query - 1);
 }
 
@@ -107,7 +110,7 @@ void UserInterface::main() {
                                 std::cout << "Invalid value!" << std::endl;
                                 break;
                             }
-                            Cloud newCloud(newCenterPoint, dx, dy, static_cast<size_t>(quantity));
+                            Cloud *newCloud = new Cloud(newCenterPoint, dx, dy, static_cast<size_t>(quantity));
                             while(!cloudCreationMenuQuitFlag) {
                                 switch(showCloudCreationMenu()) {
                                     case CloudCreationMenuOption::displace : {
@@ -116,19 +119,19 @@ void UserInterface::main() {
                                         std::cin >> dx;
                                         std::cout << "Displacement dy: ";
                                         std::cin >> dy;
-                                        newCloud.displace(dx, dy);
+                                        newCloud->displace(dx, dy);
                                         break;
                                     }
                                     case CloudCreationMenuOption::rotateAboutOrigin : {
-                                        std::cout << "Specify angle dphi: ";
+                                        std::cout << "Specify angle dphi (radinans): ";
                                         std::cin >> dphi;
-                                        newCloud.rotateAboutOrigin(dphi);
+                                        newCloud->rotateAboutOrigin(dphi);
                                         break;
                                     }
                                     case CloudCreationMenuOption::rotateAboutCenter : {
-                                        std::cout << "Specify angle dphi: ";
+                                        std::cout << "Specify angle dphi (radians): ";
                                         std::cin >> dphi;
-                                        newCloud.rotateAboutCenterPoint(dphi);
+                                        newCloud->rotateAboutCenterPoint(dphi);
                                         break;
                                     }
                                     case CloudCreationMenuOption::done : {
@@ -141,6 +144,7 @@ void UserInterface::main() {
                                     }
                                 }
                             }
+                            delete newCloud;
                             break;
                         }
                         case FieldCreationMenuOption::done : {
