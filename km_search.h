@@ -3,7 +3,7 @@
 
 #include "clusterizer.h"
 
-class KMeans : private ISearchAlgorithm {
+class KMeans : public ISearchAlgorithm {
 private:
     size_t k;
     Point *means;
@@ -11,7 +11,7 @@ private:
     bool assignToNearestMeans();
     void setMeans();
 public:
-    KMeans(Field *_field) { field = _field; }
+    KMeans() { field = nullptr; means = nullptr; }
     virtual size_t search(double floatingParameter) override;
     ~KMeans() { delete[] means; }
 };

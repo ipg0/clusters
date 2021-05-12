@@ -18,10 +18,6 @@ public:
     void displace(double _dx, double _dy);
     void rotateAboutOrigin(double dphi);
     void rotateAboutCenterPoint(double dphi);
-    void checkPoints() {
-        for(size_t i = 0; i < quantity; i++)
-            std::cout << points[i].x << ' ' << points[i].y << '\n';
-    } // remove later
     ~Cloud() { delete[] points; }
 };
 

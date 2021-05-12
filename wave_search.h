@@ -3,7 +3,7 @@
 
 #include "clusterizer.h"
 
-class Wave : private ISearchAlgorithm {
+class Wave : public ISearchAlgorithm {
 private:
     double delta;
     bool *valid;
@@ -12,7 +12,7 @@ private:
     bool spreadWave(size_t currentIteration);
     bool markCurrentCluster(size_t currentClusterMark);
 public:
-    Wave(Field *_field) { field = _field; }
+    Wave() { field = nullptr; valid = nullptr; }
     virtual size_t search(double floatingParameter) override;
 };
 

@@ -3,7 +3,7 @@
 
 #include "clusterizer.h"
 
-class FOREL : private ISearchAlgorithm {
+class FOREL : public ISearchAlgorithm {
 private:
     double radius;
     size_t markedPoints;
@@ -14,7 +14,7 @@ private:
     bool validate(Point &point) const { return !point.clusterDefined(); }
     bool allPointsMarked() const { return markedPoints == field->getQuantity(); }
 public:
-    FOREL(Field *_field) { field = _field; markedPoints = 0; }
+    FOREL() { field = nullptr; markedPoints = 0; }
     void reset() { markedPoints = 0; field->reset(); };
     virtual size_t search(double floatingParameter) override;
 };

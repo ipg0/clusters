@@ -2,7 +2,7 @@
 #define CLUSTERIZER_H
 #include "point.h"
 #include "cloud.h"
-#include "field.h"
+#include "field.cpp"
 
 class ISearchAlgorithm {
 public:
@@ -13,19 +13,30 @@ public:
 
 class Clusterizer {             // I really want to rename this into "clusterfuck" at this point
 private:
-    Field *field;                               // created outside (main flow); deleted outside
-    ISearchAlgorithm *currentSearchAlgorithm;   // created outside (main flow); updated externally (main flow); deleted inside
+    Field *field;
+    ISearchAlgorithm *searchAlgorithm;
 public:
-    Clusterizer(Field *_field, ISearchAlgorithm *_searchAlgorithm = nullptr) { 
-        field = _field; currentSearchAlgorithm = _searchAlgorithm;
+    Clusterizer() { 
+        field = nullptr; searchAlgorithm = nullptr;
     }
-    size_t search(double floatingParameter) { return currentSearchAlgorithm->search(floatingParameter); }
+    size_t search(double floatingParameter) { return searchAlgorithm->search(floatingParameter); }
     void updateSearchAlgorithm(ISearchAlgorithm *_searchAlgorithm) {
-        delete currentSearchAlgorithm;
-        currentSearchAlgorithm = _searchAlgorithm;
+        if(searchAlgorithm) delete searchAlgorithm;
+        searchAlgorithm = _searchAlgorithm;
+        searchAlgorithm->setField(field);
+    }
+    void updateField(Field *_field) {
+        if(field) delete field;
+        field = _field;
+        if(searchAlgorithm)
+            searchAlgorithm->setField(field);
+    }
+    void write(std::ostream &output) {
+        field->write(output);
     }
     ~Clusterizer() {
-        if(currentSearchAlgorithm) delete currentSearchAlgorithm;
+        if(searchAlgorithm) delete searchAlgorithm;
+        if(field) delete field;
     }
 };
 

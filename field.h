@@ -16,11 +16,7 @@ public:
     void addCloud(Cloud cloud);                   // works
     void write(std::ostream &output);
     void reset() { for(size_t i = 0; i < quantity; i++) points[i].reset(); }
-    ~Field() { delete[] points; }
-    void checkPoints() {
-        for(size_t i = 0; i < quantity; i++)
-            std::cout << points[i].x << ' ' << points[i].y << '\n';
-    } // remove later
+    ~Field() { if(points) delete[] points; }
 };
 
 #endif

@@ -43,11 +43,11 @@ void Field::addCloud(Cloud cloud) {
 void Field::write(std::ostream &output) {
     output << '[';
     for(size_t i = 0; i < quantity; i++) {
-        output << "{ \"x\" : " << points[i].x
-            << ", \"y\" : " << points[i].y
-            << ", \"clusterMark\" : " << points[i].clusterMark << '}';
+        output << "{\n\t\"x\": " << points[i].x
+            << ",\n\t\"y\": " << points[i].y
+            << ",\n\t\"clusterMark\": " << points[i].clusterMark << "\n}";
         if(i != quantity - 1)
-            output << " , ";
+            output << ", ";
     }
     output << ']';
 }

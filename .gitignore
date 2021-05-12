@@ -7,3 +7,6 @@ clusterizer
 point
 field.cpp
 out.json
+outf.json
+diff.json
+main
