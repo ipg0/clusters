@@ -15,17 +15,18 @@ UserInterface::MainMenuOption UserInterface::showMainMenu() {
     << "Choose an option: " << std::endl;
     std::cout << "1) Create new field" << std::endl;
     std::cout << "2) Load field from file" << std::endl;
-    if(clusterizer) {
+    if(clusterizer->isValid()) {
         std::cout << "3) Start search engine" << std::endl;
         std::cout << "4) Save field to file" << std::endl;
-        std::cout << "5) Plot field" << std::endl;
     }
-    std::cout << "6) Quit" << std::endl;
-    std::cout << "Type a nubmer [1-6]: ";
+    std::cout << "5) Quit" << std::endl;
+    std::cout << "Type a nubmer [1-5]: ";
     size_t query;
     std::cin >> query;
-    if(query < 1 || query > 6 || query != 6 && query > 2 && !clusterizer)
-        throw "Invalid option!";
+    if(query < 1 || query > 5 || query != 5 && query > 2 && !clusterizer) {
+        std::cout << "Invalid number!" << std::endl;
+        return showMainMenu();
+    }
     return static_cast<MainMenuOption>(query - 1);
 }
 
@@ -37,8 +38,10 @@ UserInterface::FieldCreationMenuOption UserInterface::showFieldCreationMenu() {
     std::cout << "3) Discard" << std::endl;
     size_t query;
     std::cin >> query;
-    if(query < 1 || query > 3)
-        throw "Invalid option!";
+    if(query < 1 || query > 3) {
+        std::cout << "Invalid number!" << std::endl;
+        return showFieldCreationMenu();
+    }
     return static_cast<FieldCreationMenuOption>(query - 1);
 }
 
@@ -52,8 +55,10 @@ UserInterface::CloudCreationMenuOption UserInterface::showCloudCreationMenu() {
     std::cout << "5) Discard" << std::endl;
     size_t query;
     std::cin >> query;
-    if(query < 1 || query > 5)
-        throw "Invalid option!";
+    if(query < 1 || query > 5) {
+        std::cout << "Invalid option!" << std::endl;
+        return showCloudCreationMenu();
+    }
     return static_cast<CloudCreationMenuOption>(query - 1);
 }
 
@@ -98,8 +103,10 @@ void UserInterface::main() {
                             std::cin >> dy;
                             std::cout << "Quantity: ";
                             std::cin >> quantity;
-                            if(quantity < 0)
-                                throw "Invalid value!";
+                            if(quantity <= 0) {
+                                std::cout << "Invalid value!" << std::endl;
+                                break;
+                            }
                             Cloud newCloud(newCenterPoint, dx, dy, quantity);
                             while(!cloudCreationMenuQuitFlag) {
                                 switch(showCloudCreationMenu()) {
@@ -154,8 +161,12 @@ void UserInterface::main() {
                 std::cout << "Specify file name: ";
                 std::cin >> filename;
                 std::ifstream input(filename);
-                clusterizer->updateField(new Field(input));
-                input.close();
+                if(input.good()) {
+                    clusterizer->updateField(new Field(input));
+                    input.close();
+                }
+                else
+                    std::cout << "File IO Error!" << std::endl;
                 break;
             }
             case MainMenuOption::search : {
@@ -178,6 +189,15 @@ void UserInterface::main() {
                 double floatingParameter;
                 std::cin >> floatingParameter;
                 clusterizer->search(floatingParameter);
+                std::ofstream output("out.json");
+                if(output.good()) {
+                    clusterizer->write(output);
+                    output.close();
+                    if(system("python3 visualizer.py"))
+                        std::cout << "Visualizer module crashed!" << std::endl;
+                }
+                else
+                    std::cout << "File IO Error!" << std::endl;
                 break;
             }
             case MainMenuOption::saveFieldToFile : {
@@ -185,15 +205,12 @@ void UserInterface::main() {
                 std::cout << "Specify file name: ";
                 std::cin >> filename;
                 std::ofstream output(filename);
-                clusterizer->write(output);
-                output.close();
-                break;
-            }
-            case MainMenuOption::show : {
-                std::ofstream output("out.json");
-                clusterizer->write(output);
-                output.close();
-                system("python3 visualizer.py");
+                if(output.good()) {
+                    clusterizer->write(output);
+                    output.close();
+                }
+                else
+                    std::cout << "File IO Error!" << std::endl;
                 break;
             }
             case MainMenuOption::quit : {

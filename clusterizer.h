@@ -19,6 +19,7 @@ public:
     Clusterizer() { 
         field = nullptr; searchAlgorithm = nullptr;
     }
+    bool isValid() { return field; }
     size_t search(double floatingParameter) { return searchAlgorithm->search(floatingParameter); }
     void updateSearchAlgorithm(ISearchAlgorithm *_searchAlgorithm) {
         if(searchAlgorithm) delete searchAlgorithm;

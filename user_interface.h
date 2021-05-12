@@ -9,7 +9,7 @@ private:
     Clusterizer *clusterizer;
     void showStartupMessage();
     enum class MainMenuOption 
-        {createNewField, loadFieldFromFile, search, saveFieldToFile, show, quit};
+        {createNewField, loadFieldFromFile, search, saveFieldToFile, quit};
     MainMenuOption showMainMenu();
     enum class FieldCreationMenuOption
         {addCloud, done, discard};
