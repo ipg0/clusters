@@ -5,6 +5,6 @@ project(clusters VERSION 1.2)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-add_compile_options(-Wall -Wextra -Wpedantic -Werror -pedantic-errors )
+add_compile_options(-Wall -Wextra -Wpedantic -Werror -pedantic-errors)
 
 add_executable(clusters main.cpp)
