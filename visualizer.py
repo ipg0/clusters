@@ -5,5 +5,5 @@ from pandas import read_json
 
 data = read_json("out.json")
 
-scatterplot(data = data, x = 'x', y = 'y', hue = 'mark')
+scatterplot(data = data, x = 'x', y = 'y', hue = 'clusterMark')
 show()
