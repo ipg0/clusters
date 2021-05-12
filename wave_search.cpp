@@ -1,7 +1,7 @@
 #include "wave_search.h"
 
 size_t Wave::randomPointIndex() const {
-    size_t currentIndex = rand() % field->getQuantity();
+    size_t currentIndex = static_cast<size_t>(rand()) % field->getQuantity();
     if(valid[currentIndex])
         return currentIndex;
     return randomPointIndex();

@@ -14,6 +14,7 @@ private:
 public:
     Wave() { field = nullptr; valid = nullptr; }
     virtual size_t search(double floatingParameter) override;
+    virtual ~Wave() override { delete[] valid; }
 };
 
 #endif

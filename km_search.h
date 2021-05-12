@@ -13,7 +13,7 @@ private:
 public:
     KMeans() { field = nullptr; means = nullptr; }
     virtual size_t search(double floatingParameter) override;
-    ~KMeans() { delete[] means; }
+    virtual ~KMeans() override { delete[] means; }
 };
 
 #endif

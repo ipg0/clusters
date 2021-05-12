@@ -13,7 +13,7 @@ public:
     Cloud(const Cloud &_cloud);
     Cloud(Point _centerPoint, double _dx, double _dy, size_t _quantity);   // works
     Point *getPoints() { return points; }
-    Point getCenterPoint() { return centerPoint; };
+    Point getCenterPoint() { return centerPoint; }
     size_t getQuantity() { return quantity; }
     void displace(double _dx, double _dy);
     void rotateAboutOrigin(double dphi);

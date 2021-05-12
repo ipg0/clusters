@@ -16,7 +16,7 @@ Cloud::Cloud(Point _centerPoint, double _dx, double _dy, size_t _quantity) {
     dy = _dy;
     quantity = _quantity;
     points = new Point[quantity];
-    std::default_random_engine generator(time(0));
+    std::default_random_engine generator(static_cast<size_t>(time(nullptr)));
     std::normal_distribution<double> xdistr(_centerPoint.x, dx);
     std::normal_distribution<double> ydistr(_centerPoint.y, dy);
     for(size_t i = 0; i < quantity; i++)

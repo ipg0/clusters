@@ -5,7 +5,7 @@ Field::Field(const Field &_field) {
     quantity = _field.quantity;
     points = new Point[quantity];
     memcpy(points, _field.points, quantity * sizeof(Point));
-};
+}
 
 Field::Field(std::istream &input) {
     points = nullptr;
@@ -35,7 +35,7 @@ Field::Field(std::istream &input) {
 } // this is terrible but it should work, not a general JSON parser anyway.
 
 void Field::addCloud(Cloud cloud) {
-    points = (Point *)realloc(points, quantity + cloud.getQuantity() * sizeof(Point));
+    points = static_cast<Point *>(realloc(points, quantity + cloud.getQuantity() * sizeof(Point)));
     memcpy(points + quantity, cloud.getPoints(), cloud.getQuantity() * sizeof(Point));
     quantity += cloud.getQuantity();
 }

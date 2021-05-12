@@ -9,7 +9,11 @@ public:
     Field *field;
     void setField(Field *_field) { field = _field; }
     virtual size_t search(double floatingParameter) = 0;
+    virtual ~ISearchAlgorithm();
 };
+
+ISearchAlgorithm::~ISearchAlgorithm() { }   // an out-of-line virtual method definition
+                                            //is apparently necessary for smth
 
 class Clusterizer {             // I really want to rename this into "clusterfuck" at this point
 private:

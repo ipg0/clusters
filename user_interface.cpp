@@ -12,7 +12,7 @@ void UserInterface::showStartupMessage() {
 
 UserInterface::MainMenuOption UserInterface::showMainMenu() {
     std::cout << "Main Menu: " << std::endl
-    << "Choose an option: " << std::endl;
+        << "Choose an option: " << std::endl;
     std::cout << "1) Create new field" << std::endl;
     std::cout << "2) Load field from file" << std::endl;
     if(clusterizer->isValid()) {
@@ -23,7 +23,7 @@ UserInterface::MainMenuOption UserInterface::showMainMenu() {
     std::cout << "Type a nubmer [1-5]: ";
     size_t query;
     std::cin >> query;
-    if(query < 1 || query > 5 || query != 5 && query > 2 && !clusterizer) {
+    if(query < 1 || query > 5 || (query != 5 && query > 2 && !clusterizer)) {
         std::cout << "Invalid number!" << std::endl;
         return showMainMenu();
     }
@@ -107,7 +107,7 @@ void UserInterface::main() {
                                 std::cout << "Invalid value!" << std::endl;
                                 break;
                             }
-                            Cloud newCloud(newCenterPoint, dx, dy, quantity);
+                            Cloud newCloud(newCenterPoint, dx, dy, static_cast<size_t>(quantity));
                             while(!cloudCreationMenuQuitFlag) {
                                 switch(showCloudCreationMenu()) {
                                     case CloudCreationMenuOption::displace : {

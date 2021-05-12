@@ -2,7 +2,7 @@
 #include <cstdlib>
 
 size_t FOREL::randomPointIndex() const {
-    size_t currentIndex = rand() % field->getQuantity();
+    size_t currentIndex = static_cast<size_t>(rand()) % field->getQuantity();
     if(!field->getPoints()[currentIndex].clusterDefined())
         return currentIndex;
     return randomPointIndex();
@@ -14,7 +14,7 @@ Point FOREL::getCentroid(Point **points, size_t quantity) const {
         sumX += points[i]->x;
         sumY += points[i]->y;
     }
-    return Point(sumX / quantity, sumY / quantity);
+    return Point(sumX / static_cast<double>(quantity), sumY / static_cast<double>(quantity));
 }
 
 Point **FOREL::getPointsWithinRadius(Point &center, size_t &quantity) const {

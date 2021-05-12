@@ -3,7 +3,7 @@
 
 void KMeans::setRandomMeans() {
     for(size_t i = 0; i < k; i++)
-        means[i] = field->getPoints()[rand() % field->getQuantity()];
+        means[i] = field->getPoints()[static_cast<size_t>(rand()) % field->getQuantity()];
 }
 
 bool KMeans::assignToNearestMeans() {
@@ -38,7 +38,7 @@ void KMeans::setMeans() {
         quantity[field->getPoints()[i].clusterMark - 1]++;
     }
     for(size_t i = 0; i < k; i++)
-        means[i] = Point(sumX[i] / quantity[i], sumY[i] / quantity[i]);
+        means[i] = Point(sumX[i] / static_cast<double>(quantity[i]), sumY[i] / static_cast<double>(quantity[i]));
     delete[] sumX;
     delete[] sumY;
     delete[] quantity;
