@@ -91,7 +91,7 @@ void UserInterface::main() {
                             bool cloudCreationMenuQuitFlag = false;
                             Point newCenterPoint;
                             double dx, dy, dphi;
-                            size_t quantity;
+                            long quantity;
                             std::cout << "Specify values:" << std::endl;
                             std::cout << "Center point x: ";
                             std::cin >> newCenterPoint.x;
@@ -120,13 +120,13 @@ void UserInterface::main() {
                                         break;
                                     }
                                     case CloudCreationMenuOption::rotateAboutOrigin : {
-                                        std::cout << "Specify angle dphi:" << std::endl;
+                                        std::cout << "Specify angle dphi: ";
                                         std::cin >> dphi;
                                         newCloud.rotateAboutOrigin(dphi);
                                         break;
                                     }
                                     case CloudCreationMenuOption::rotateAboutCenter : {
-                                        std::cout << "Specify angle dphi:" << std::endl;
+                                        std::cout << "Specify angle dphi: ";
                                         std::cin >> dphi;
                                         newCloud.rotateAboutCenterPoint(dphi);
                                         break;
