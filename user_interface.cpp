@@ -202,9 +202,7 @@ void UserInterface::main() {
                 if(output.good()) {
                     clusterizer->write(output);
                     output.close();
-                    char *systemVisualizerCommand = get_current_dir_name();
-                    strcat(systemVisualizerCommand, "/visualizer.py");
-                    if(system(systemVisualizerCommand))
+                    if(system("./visualizer.py"))
                         std::cout << "Visualizer module crashed!" << std::endl;
                 }
                 else
