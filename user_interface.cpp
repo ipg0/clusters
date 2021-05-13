@@ -7,7 +7,7 @@
 #define DEF_STR_SIZE 256
 
 void UserInterface::showStartupMessage() {
-    std::cout << "Cluster Finder by notblank00, licensed under GNU GPL v3.0" << std::endl;
+    std::cout << "clusters by notblank00, licensed under GNU GPL v3.0" << std::endl;
 }
 
 UserInterface::MainMenuOption UserInterface::showMainMenu() {
@@ -70,13 +70,17 @@ UserInterface::SearchAlgorithmMenuOption UserInterface::showSearchAlgorithmMenu(
     std::cout << "1) FOREL" << std::endl;
     std::cout << "2) K Means" << std::endl;
     std::cout << "3) Wave Method" << std::endl;
-    std::cout << "Selection [1-3]:";
+    std::cout << "Selection [1-3]: ";
     size_t query;
     std::cin >> query;
     if(query < 1 || query > 3) {
         std::cout << "Invalid option!" << std::endl;
     }
     return static_cast<SearchAlgorithmMenuOption>(query - 1);
+}
+
+void UserInterface::showQuitMessage() {
+    std::cout << "Terminating." << std::endl;
 }
 
 void UserInterface::main() {
@@ -192,7 +196,7 @@ void UserInterface::main() {
                 }
                 double floatingParameter;
                 std::cin >> floatingParameter;
-                clusterizer->search(floatingParameter);
+                std::cout << "Found " << clusterizer->search(floatingParameter) << " clusters." << std::endl;
                 std::ofstream output("out.json");
                 if(output.good()) {
                     clusterizer->write(output);
@@ -222,4 +226,5 @@ void UserInterface::main() {
             }
         }
     }
+    showQuitMessage();
 }

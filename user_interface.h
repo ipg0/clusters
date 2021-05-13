@@ -21,7 +21,7 @@ private:
     SearchAlgorithmMenuOption showSearchAlgorithmMenu();
     void fileLoadRequest();
     void fileSaveRequest();
-    void showTerminationMessage();
+    void showQuitMessage();
 public:
     UserInterface() { clusterizer = nullptr; }
     void main();
