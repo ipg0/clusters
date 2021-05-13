@@ -197,7 +197,12 @@ void UserInterface::main() {
                 }
                 double floatingParameter;
                 std::cin >> floatingParameter;
-                std::cout << "Found " << clusterizer->search(floatingParameter) << " clusters." << std::endl;
+                size_t foundClustersQuantity = clusterizer->search(floatingParameter);
+                if(foundClustersQuantity == 0) {
+                    std::cout << "Invalid value!" << std::endl;
+                    break;
+                }
+                std::cout << "Found " << foundClustersQuantity << " clusters." << std::endl;
                 std::ofstream output("out.json");
                 if(output.good()) {
                     clusterizer->write(output);

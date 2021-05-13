@@ -45,6 +45,8 @@ void KMeans::setMeans() {
 }
 
 size_t KMeans::search(double floatingParameter) {
+    if(floatingParameter <= 0)
+        return 0; // bad input
     k = static_cast<size_t>(floatingParameter);
     means = new Point[k];
     setRandomMeans();
