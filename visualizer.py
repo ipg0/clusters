@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 from matplotlib.pyplot import show
 from seaborn import scatterplot
 from pandas import read_json

@@ -2,6 +2,7 @@
 #include "forel_search.cpp"
 #include "km_search.cpp"
 #include "wave_search.cpp"
+#include <unistd.h>
 #include <fstream>
 
 #define DEF_STR_SIZE 256
@@ -201,7 +202,9 @@ void UserInterface::main() {
                 if(output.good()) {
                     clusterizer->write(output);
                     output.close();
-                    if(system("python3 visualizer.py"))
+                    char *systemVisualizerCommand = get_current_dir_name();
+                    strcat(systemVisualizerCommand, "/visualizer.py");
+                    if(system(systemVisualizerCommand))
                         std::cout << "Visualizer module crashed!" << std::endl;
                 }
                 else
