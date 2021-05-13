@@ -6,7 +6,7 @@ A tool for finding point clusters in a 2D linear space.
 clusters uses unified JSON format for input and output, but also contains an interactive point generator. It runs interactively in terminal and uses <a href=https://pandas.pydata.org/>Pandas</a> and <a href=https://seaborn.pydata.org/>Seaborn</a> to plot the results.
 Input / output JSON files must be / are formatted as follows:
 
-An array `[...]` of dictionaries `{...}`, each containing three values, namely: `"x"` and `"y"` of type `double` and `"clusterMark"` of type `int`.
+A list `[...]` of dictionaries `{...}`, each containing three values, namely: `"x"` and `"y"` of type `double` and `"clusterMark"` of type `int`.
 
 Values of `"clusterMark"` don't matter when used as input, in output files this value corresponds to the index of the cluster each point belongs to.
 
@@ -50,18 +50,19 @@ Due to complicated inter-language interactions between clusters and its visualiz
 
 <h4>file: clusters-global</h4>
 
-```
+```bash
 #!/bin/bash
 cd /original/path/to/clusters; ./clusters
 ```
 Then make it executable:
-```
+
+```bash
 chmod +x ./clusters-global
 ```
 
 And now you can link this script into the binary folder:
 
-```
+```bash
 sudo ln ./clusters-global /usr/bin/clusters
 ```
 
